@@ -16,12 +16,24 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Homepage',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon
+              name={focused ? 'home' : 'home-outline'}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="guitar"
         options={{
           title: 'Guitar',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? 'home' : 'home-outline'}
+              name={focused ? 'musical-notes' : 'musical-notes-outline'}
               color={color}
             />
           ),
@@ -33,7 +45,7 @@ export default function TabLayout() {
           title: 'Ukulele',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon
-              name={focused ? 'code-slash' : 'code-slash-outline'}
+              name={focused ? 'musical-notes' : 'musical-notes-outline'}
               color={color}
             />
           ),
