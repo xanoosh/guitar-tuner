@@ -1,38 +1,45 @@
 import { Image, StyleSheet, Platform } from 'react-native';
-// import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-// import { Audio } from 'expo-av';
+import { Audio } from 'expo-av';
 
 export default function GuitarTuner() {
-  // const [recording, setRecording] = useState<any>();
-  // const [permissionResponse, requestPermission] = Audio.usePermissions();
+  const [recording, setRecording] = useState<any>();
+  const [permissionResponse, requestPermission] = Audio.usePermissions();
 
-  // async function startRecording() {
-  //   try {
-  //     if (permissionResponse?.status !== 'granted') {
-  //       console.log('Requesting permission..');
-  //       await requestPermission();
-  //     }
-  //     await Audio.setAudioModeAsync({
-  //       allowsRecordingIOS: true,
-  //       playsInSilentModeIOS: true,
-  //     });
+  async function startRecording() {
+    try {
+      if (permissionResponse?.status !== 'granted') {
+        console.log('Requesting permission..');
+        await requestPermission();
+      }
+      await Audio.setAudioModeAsync({
+        allowsRecordingIOS: true,
+        playsInSilentModeIOS: true,
+      });
 
-  //     console.log('Starting recording..');
-  //     const { recording } = await Audio.Recording.createAsync(
-  //       Audio.RecordingOptionsPresets.HIGH_QUALITY
-  //     );
-  //     setRecording(recording);
+      console.log('Starting recording..');
+      const { recording } = await Audio.Recording.createAsync(
+        Audio.RecordingOptionsPresets.HIGH_QUALITY
+      );
+      setRecording(recording);
 
-  //     console.log('Recording started');
-  //   } catch (err) {
-  //     console.error('Failed to start recording', err);
-  //   }
-  // }
-  // console.log('Recording', recording);
+      console.log('Recording started');
+    } catch (err) {
+      console.error('Failed to start recording', err);
+    }
+  }
+
+  startRecording();
+  useEffect(() => {
+    if (recording) {
+      console.log('Recording:', recording);
+    }
+  }, [recording]);
+
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
